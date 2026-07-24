@@ -122,4 +122,20 @@ function adjustMonth(month, theDiv){
     }
     return theDiv.innerHTML;
 }
+//////////////////////////////
+
+
+
+async function getWeather(lat, lon){
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=apparent_temperature,rain,precipitation,showers,is_day,temperature_2m,relative_humidity_2m&timezone=auto`;
     
+    const response = await fetch(url);
+    const data = await response.json();
+
+
+    console.log(`Current temp is ${data.current.temperature_2m}`);
+    console.log(data.current.relative_humidity_2m);
+    console.log("")
+    return data;
+}
+getWeather(-36.8485, 174.7633);
