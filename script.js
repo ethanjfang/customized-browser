@@ -131,11 +131,15 @@ async function getWeather(lat, lon){
     
     const response = await fetch(url);
     const data = await response.json();
-
+    //returns temperature(2m), relative humidity(2m), apparent temp, is day or night, precipitation, rain, showers
 
     console.log(`Current temp is ${data.current.temperature_2m}`);
-    console.log(data.current.relative_humidity_2m);
-    console.log("")
+    console.log(`Relative humidity: 2m: ${data.current.relative_humidity_2m}`);
+    console.log(`${data.current.time}`);
+    console.log(`Precipitation: ${data.current.precipitation}`);
+    console.log(`showers: ${data.current.showers}`);
+    console.log(`is day: ${data.current.is_day}`);
+    console.log(` relative humidity 2m: ${data.current.relative_humidity_2m}`);
     return data;
 }
 getWeather(-36.8485, 174.7633); //user prompt to enter lat, lon

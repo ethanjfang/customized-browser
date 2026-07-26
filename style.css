@@ -1,6 +1,6 @@
-*{
+/* *{
     border: 1px solid black;
-}
+} */
 
 @font-face{
   font-family: 'FOT-Chiaro Std';
@@ -19,11 +19,13 @@ p{
   position: absolute; /*inside calendar div */
   background: #ffea00;
   background: linear-gradient(180deg,rgba(255, 234, 0, 1) 58%, rgba(166, 135, 70, 1) 100%);
-  left: 210px;
+  /* left: 210px; */
   height: 100vh;
-  /* min-width: 150px;
-  max-width: 150px; */
-  width: 250px;
+  left: 13vw;
+  right: 0;
+  top: 0;
+
+  width: 14vw ;
   z-index: -1;
 	animation: scale-up-ver-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 
@@ -53,19 +55,24 @@ p{
             transform: scaleX(1);
   }
 }
-
+/* .calendar-wrapper{
+  position: relative;
+  width: 1650px;
+  
+} */
 .calendar {
   
   position: relative;
   display: flex;
   flex-shrink: 0;
-  min-width: 200px;
+  /* min-width: 200px; idk what this is doing here*/
   /* justify-content: space-evenly; */
   overflow-x: auto;
-  gap: 100px;
+  gap: 4.56vw;
+  /* gap: 70px; */
   overflow-y: visible;
   overflow: clip; /* disables scrolling */
-  
+  width: 100vw;
 }
 
 /* 
@@ -85,11 +92,12 @@ p{
 }
 
 .two-days-ago, .one-day-ago, .todayDiv, .futureDiv{
-  
+  position: relative;
   font-family: 'FOT-Chairo Std', sans-serif;
-  min-width: 150px;
-  max-width: 150px;
-  width: 150px;
+  min-width: 9.76vw;
+  max-width: 9.76vw;
+  width: 9.76vw;
+  /* 150 9.76 */
   animation: 1s slideLeft 1s ease forwards;
   text-align: center;
   justify-content: flex-start;
@@ -99,11 +107,14 @@ p{
 }
 
 .date{
-  font-size: 50px;
+  font-size: 3.3vw;
+
+  /* 50 */
   transform: translateY(-50px);
 }
 .weekday, .saturday, .sunday{
-  font-size: 25px;
+  font-size: 1.8vw;
+  /* 25 */
   transform: translateY(60%);
 }
 
@@ -113,18 +124,19 @@ p{
     transform: translateX(0%);
   }
   100%{
-    transform: translateX(-167.1%);
+    transform: translateX(-146%);
   }
 }
 .month{
   font-size: 200px;
-  transform: translateY(-10%);
+  /* 200 px */
+  transform: translateY(-0%);
   opacity: 0;
 }
 
 .month.single{
   /* font-size: 200px; */
-  transform: translateY(-30%);
+  transform: translateY(-20%);
   /* opacity: 0; */
   
   animation: 0.2s slideFromRight 2s ease-in forwards;
@@ -141,8 +153,11 @@ p{
 
 
 .year{
-  transform: scale(1, 0.8) translateY(-460%);
-  font-size: 60px; 
+  transform: scale(1, 0.8) translateY(-80vh);
+  font-size: 2.42vw; 
+  height: 11.5vh;
+  /* 40 2.42  -650%*/
+  /*>>>>>>>>> change px to vh/vw before working on differnt monitor ************ */
 }
 
 .sunday{
@@ -154,11 +169,11 @@ p{
 
 @keyframes slideFromRight{
   0%{
-    transform: translateX(10%) translateY(-35%) rotate(10deg) ;
+    transform: translateX(10%) translateY(-30%) rotate(10deg) ;
     opacity: 0;
   }
   100%{
-    transform: translateX(0%) translateY(-35%) rotate(10deg) ;
+    transform: translateX(0%) translateY(-30%) rotate(10deg) ;
     opacity: 1;
   }
 }
