@@ -138,4 +138,4 @@ async function getWeather(lat, lon){
     console.log("")
     return data;
 }
-getWeather(-36.8485, 174.7633);
+getWeather(-36.8485, 174.7633); //user prompt to enter lat, lon
