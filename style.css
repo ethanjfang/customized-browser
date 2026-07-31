@@ -128,7 +128,7 @@ p{
   }
 }
 .month{
-  font-size: 200px;
+  font-size: 30vh;
   /* 200 px */
   transform: translateY(-0%);
   opacity: 0;

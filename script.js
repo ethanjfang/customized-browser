@@ -122,24 +122,41 @@ function adjustMonth(month, theDiv){
     }
     return theDiv.innerHTML;
 }
-//////////////////////////////
 
 
 
 async function getWeather(lat, lon){
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=apparent_temperature,rain,precipitation,showers,is_day,temperature_2m,relative_humidity_2m&timezone=auto`;
-    
+    //const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=apparent_temperature,rain,precipitation,showers,is_day,temperature_2m,relative_humidity_2m&timezone=auto`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&current=temperature_2m,precipitation,rain,showers,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,apparent_temperature,is_day,relative_humidity_2m`;
     const response = await fetch(url);
-    const data = await response.json();
+    const weatherData = await response.json();
     //returns temperature(2m), relative humidity(2m), apparent temp, is day or night, precipitation, rain, showers
 
-    console.log(`Current temp is ${data.current.temperature_2m}`);
-    console.log(`Relative humidity: 2m: ${data.current.relative_humidity_2m}`);
-    console.log(`${data.current.time}`);
-    console.log(`Precipitation: ${data.current.precipitation}`);
-    console.log(`showers: ${data.current.showers}`);
-    console.log(`is day: ${data.current.is_day}`);
-    console.log(` relative humidity 2m: ${data.current.relative_humidity_2m}`);
-    return data;
+    // console.log(`Current temp is ${data.current.temperature_2m}`);
+    // console.log(`Relative humidity: 2m: ${data.current.relative_humidity_2m}`);
+    // console.log(`${data.current.time}`);
+    // console.log(`Precipitation: ${data.current.precipitation}`);
+    // console.log(`showers: ${data.current.showers}`);
+    // console.log(`is day: ${data.current.is_day}`);
+    // console.log(` relative humidity 2m: ${data.current.relative_humidity_2m}`);
+    console.log(
+	"\nCurrent time: " + weatherData.current.time + "\n",
+	"\nCurrent temperature_2m: " + weatherData.current.temperature_2m,
+	"\nCurrent precipitation: " + weatherData.current.precipitation,
+	"\nCurrent rain: " + weatherData.current.rain,
+	"\nCurrent showers: " + weatherData.current.showers,
+	"\nCurrent wind_speed_10m: " + weatherData.current.wind_speed_10m,
+	"\nCurrent wind_direction_10m: " + weatherData.current.wind_direction_10m,
+	"\nCurrent wind_gusts_10m: " + weatherData.current.wind_gusts_10m,
+	"\nCurrent weather_code: " + weatherData.current.weather_code,
+	"\nCurrent apparent_temperature: " + weatherData.current.apparent_temperature,
+	"\nCurrent is_day: " + weatherData.current.is_day,
+	"\nCurrent relative_humidity_2m: " + weatherData.current.relative_humidity_2m
+    );
+    console.log("\nHourly data:\n", weatherData.hourly);
+        return weatherData;
 }
 getWeather(-36.8485, 174.7633);
+
+//make if statements to decide which weather icon to display
+//fix icons 31/07
