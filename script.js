@@ -126,37 +126,75 @@ function adjustMonth(month, theDiv){
 
 
 async function getWeather(lat, lon){
-    //const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=apparent_temperature,rain,precipitation,showers,is_day,temperature_2m,relative_humidity_2m&timezone=auto`;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&current=temperature_2m,precipitation,rain,showers,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,apparent_temperature,is_day,relative_humidity_2m`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,apparent_temperature_max,precipitation_probability_max,wind_speed_10m_max,rain_sum&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,is_day,rain,wind_speed_10m&timezone=Pacific%2FAuckland&past_days=2 `
     const response = await fetch(url);
     const weatherData = await response.json();
-    //returns temperature(2m), relative humidity(2m), apparent temp, is day or night, precipitation, rain, showers
 
-    // console.log(`Current temp is ${data.current.temperature_2m}`);
-    // console.log(`Relative humidity: 2m: ${data.current.relative_humidity_2m}`);
-    // console.log(`${data.current.time}`);
-    // console.log(`Precipitation: ${data.current.precipitation}`);
-    // console.log(`showers: ${data.current.showers}`);
-    // console.log(`is day: ${data.current.is_day}`);
-    // console.log(` relative humidity 2m: ${data.current.relative_humidity_2m}`);
-    console.log(
-	"\nCurrent time: " + weatherData.current.time + "\n",
-	"\nCurrent temperature_2m: " + weatherData.current.temperature_2m,
-	"\nCurrent precipitation: " + weatherData.current.precipitation,
-	"\nCurrent rain: " + weatherData.current.rain,
-	"\nCurrent showers: " + weatherData.current.showers,
-	"\nCurrent wind_speed_10m: " + weatherData.current.wind_speed_10m,
-	"\nCurrent wind_direction_10m: " + weatherData.current.wind_direction_10m,
-	"\nCurrent wind_gusts_10m: " + weatherData.current.wind_gusts_10m,
-	"\nCurrent weather_code: " + weatherData.current.weather_code,
-	"\nCurrent apparent_temperature: " + weatherData.current.apparent_temperature,
-	"\nCurrent is_day: " + weatherData.current.is_day,
-	"\nCurrent relative_humidity_2m: " + weatherData.current.relative_humidity_2m
-    );
-    console.log("\nHourly data:\n", weatherData.hourly);
-        return weatherData;
+    return weatherData;
 }
-getWeather(-36.8485, 174.7633);
+// getWeather(-36.8485, 174.7633);
+async function getWeatherForDate(weatherData, date){
+    const targetDate = new Date();  
 
-//make if statements to decide which weather icon to display
+    targetDate.setDate(date);
+    const targetDateStr = targetDate.toISOString().split("T")[0];
+    const index = weatherData.daily.time.indexOf(targetDateStr);
+    const maxTemp = weatherData.daily.temperature_2m_max[index];
+    const wind = weatherData.daily.wind_speed_10m_max[index];
+    const precipitation = weatherData.daily.precipitation_probability_max[index];
+    const apparent_temperature = weatherData.daily.apparent_temperature_max[index];
+    const rain_sum = weatherData.daily.rain_sum[index];
+    return { maxTemp, wind, precipitation, apparent_temperature, rain_sum };
+}
+
+//make if statements to decide which weather icon to displayx
 //fix icons 31/07
+
+
+const dates = document.querySelectorAll(".date");
+async function printDateTemps(){
+    const weatherData = await getWeather(-36.8485, 174.7633);
+    for (const div of dates){
+    const { maxTemp, wind, precipitation, apparent_temperature, rain_sum } = await getWeatherForDate(weatherData, div.textContent);
+    console.log(`${div.textContent.trim()}th: maxTemp: ${maxTemp}, wind: ${wind}, precipitation: ${precipitation}, apparent temperature: ${apparent_temperature}, rain sum: ${rain_sum}`);
+    // if (maxTemp >= 15 && rain_sum <= 0){
+    //     div.innerHTML = `
+    //     <img src = "acircle_transparent.png" style = "width:100px; height: 100px; ">`
+    // } else if (rain_sum > 0){
+    //     div.innerHTML = `
+    //     <img src = "aumbrella_transparent.png">`
+    // };
+    //TODO: The year is not showing and the images replace date text 19/10
+    
+    }
+    // *Refer to pritned statement for returned parameters
+    // *TODO: Give the images css classes 4/08 or inline css 19/10
+    //*TODO: Separate into separe js files
+    
+    // console.log(div.textContent);
+    }
+
+
+printDateTemps();
+
+//https://api.open-meteo.com/v1/forecast?latitude=-36.8485&longitude=174.7633&daily=temperature_2m_max,apparent_temperature_max,precipitation_probability_max,wind_speed_10m_max,rain_sum&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,is_day,rain,wind_speed_10m&timezone=Pacific%2FAuckland&past_days=2 
+
+
+    
+    //returns temperature(2m), relative humidity(2m), apparent temp, is day or night, precipitation, rain, showers
+    // console.log(
+	// "\nCurrent time: " + weatherData.current.time + "\n",
+	// "\nCurrent temperature_2m: " + weatherData.current.temperature_2m,
+	// "\nCurrent precipitation: " + weatherData.current.precipitation,
+	// "\nCurrent rain: " + weatherData.current.rain,
+	// "\nCurrent showers: " + weatherData.current.showers,
+	// "\nCurrent wind_speed_10m: " + weatherData.current.wind_speed_10m,
+	// "\nCurrent wind_direction_10m: " + weatherData.current.wind_direction_10m,
+	// "\nCurrent wind_gusts_10m: " + weatherData.current.wind_gusts_10m,
+	// "\nCurrent weather_code: " + weatherData.current.weather_code,
+	// "\nCurrent apparent_temperature: " + weatherData.current.apparent_temperature,
+	// "\nCurrent is_day: " + weatherData.current.is_day,
+	// "\nCurrent relative_humidity_2m: " + weatherData.current.relative_humidity_2m,
+    // "\n daily temp in 2 days: " + weatherData.current.temperature_2m[1]
+    // );
+    // console.log("\nHourly data:\n", weatherData.hourly);
