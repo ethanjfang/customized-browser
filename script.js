@@ -162,10 +162,19 @@ async function printDateTemps(){
     //     <img src = "acircle_transparent.png" style = "width:100px; height: 100px; ">`
     // } else if (rain_sum > 0){
     //     div.innerHTML = `
-    //     <img src = "aumbrella_transparent.png">`
+    //     <img src = "aumbrella_transparent.png" style = "width:100px; height: 100px; ">`
     // };
     //TODO: The year is not showing and the images replace date text 19/10
-    
+    const img = document.createElement("img");
+    img.classList.add("weather-icon");
+    if (rain_sum > 0){
+        img.src = "aumbrella_transparent.png";
+    } else if (maxTemp >= 15){
+        img.src = "acircle_transparent.png";
+    } else {
+        continue;
+    }
+    div.appendChild(img);
     }
     // *Refer to pritned statement for returned parameters
     // *TODO: Give the images css classes 4/08 or inline css 19/10
