@@ -207,3 +207,12 @@ printDateTemps();
     // "\n daily temp in 2 days: " + weatherData.current.temperature_2m[1]
     // );
     // console.log("\nHourly data:\n", weatherData.hourly);
+
+
+//home.html loads as calendary fades out
+document.body.addEventListener("transitionend", () => {
+    
+    location.replace("home.html");
+}, { once: true });
+
+document.body.classList.add("fade-out");

@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "My Custom Startpage",
+  "version": "1.0",
+  "description": "Overrides New Tab and Homepage with a custom startpage.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "custom-startpage@local.dev"
+    }
+  },
+  "chrome_url_overrides": {
+    "newtab": "calendar.html"
+  },
+  "permissions":[
+    "bookmarks",
+    "search",
+    "history",
+    "storage"
+  ]
+}

@@ -1,6 +1,7 @@
-/* *{
+*{
     border: 1px solid black;
-} */
+}
+/*!the year is not shown when border lines disabled */
 
 @font-face{
   font-family: 'FOT-Chiaro Std';
@@ -192,7 +193,7 @@ p{
 
 }
 
-@keyframes fadeIn{
+/* @keyframes fadeIn{
   0%{
     opacity: 0;
   }
@@ -200,7 +201,7 @@ p{
   100%{
     opacity: 1;
   }
-}
+} */
 
 /* weather icons */
 .weather-icon{
@@ -212,3 +213,7 @@ p{
   
   border-radius: 15%;
 }
+
+/* fades out the body and lets home.html load */
+body { transition: opacity 1s ease 2s; }
+body.fade-out { opacity: 0; }
