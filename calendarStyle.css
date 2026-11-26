@@ -274,5 +274,5 @@ p{
 
 
 /* !fades out the body and lets home.html load */
-/* body { transition: opacity 1s ease 4s; }
-body.fade-out { opacity: 0; } */
+body { transition: opacity 1s ease 4s; }
+body.fade-out { opacity: 0; }
